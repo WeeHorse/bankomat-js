@@ -5,6 +5,7 @@ module.exports = class Bankomat {
     amount;
     machineBalance = 11000;
     msgs = [];
+    pinAttempts = 0;
 
     getMessage(){
         return this.msgs.shift();
@@ -21,12 +22,22 @@ module.exports = class Bankomat {
         this.msgs.push("Card removed, don't forget it!");
     }
 
+    eatCard(){
+        this.cardInserted = false;
+        this.msgs.push("Card kept. Contact your bank.");
+    }
+
     enterPin(pin){
         if(this.card.pin == pin){
             this.msgs.push("Correct pin");
+            this.pinAttempts = 0;
             return true;            
         }else{
             this.msgs.push("Incorrect pin");
+            this.pinAttempts++;
+            if(this.pinAttempts > 2){
+                this.eatCard();
+            }
             return false;
         }
     }
