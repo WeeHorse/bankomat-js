@@ -15,6 +15,9 @@ module.exports = class Bankomat {
         this.cardInserted = true;
         this.card = card;
         this.msgs.push("Card inserted");
+        if(!this.card.pin){
+            this.msgs.push('Create new pin code');
+        }
     }
 
     ejectCard(){
@@ -25,6 +28,12 @@ module.exports = class Bankomat {
     eatCard(){
         this.cardInserted = false;
         this.msgs.push("Card kept. Contact your bank.");
+    }
+
+    createPin(pin){
+        this.card.pin = pin;
+        this.msgs.push("Pin created. You can start using your card.");
+        this.ejectCard();
     }
 
     enterPin(pin){

@@ -1,6 +1,6 @@
 module.exports = class Card {
 
-    pin = "0123";
+    pin;
     account;
 
     constructor(account){
